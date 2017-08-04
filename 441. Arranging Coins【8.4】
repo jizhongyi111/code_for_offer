@@ -8,3 +8,5 @@ int arrangeCoins(int n) {
     if(iSum==n) return i-1;
     return i-2;
 }
+
+//使用int类型的iSum会移出，从而使得累加和小于0，别问我怎么知道的TAT。
