@@ -1,0 +1,10 @@
+int arrangeCoins(int n) {
+    double i=1;
+    double iSum=0;
+    while(iSum<n){
+    iSum=iSum+i;
+        i++;
+    }
+    if(iSum==n) return i-1;
+    return i-2;
+}
