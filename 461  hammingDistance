@@ -1,0 +1,32 @@
+int main()
+{
+
+	int n;
+	n = hammingDistance(1, 4);
+	printf("%d", n);
+	system("pause"); 
+}
+
+int hammingDistance(int x, int y) {
+
+	int ibetx, ibety;
+	int iResult = 0;
+	if ((x == 0) && (y == 0))
+	{
+
+		return iResult;
+
+	}
+	else{
+		while ((x != 0) || (y != 0))
+		{
+			ibetx = x % 2;
+			ibety = y % 2;
+			if (ibetx != ibety) iResult++;
+			x /= 2;
+			y /= 2;
+		}
+		return iResult;
+
+	}
+}
