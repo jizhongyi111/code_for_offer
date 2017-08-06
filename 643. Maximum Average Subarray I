@@ -1,0 +1,23 @@
+double findMaxAverage(int* nums, int numsSize, int k) {
+	double sum=0;
+	for (int j = 0; j < k;j++) 
+		sum+=nums[j];
+	double temp;
+	double temp_s=-100001;
+	double result;
+	int i,m;
+	if (k == 1){
+		for (int n = 0; n < numsSize; n++){
+			if (temp_s < nums[n]) temp_s = nums[n];
+		}
+		return temp_s;
+	}
+	temp = sum;
+	for (i = 0,m = i + k; m < numsSize; i++, m++)
+	{
+		sum=sum+nums[m] - nums[i];
+		if (sum > temp) temp = sum;
+	}
+	result = temp / k;
+	return result;
+}
