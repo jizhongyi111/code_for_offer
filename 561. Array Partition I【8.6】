@@ -1,0 +1,64 @@
+int compInc(const void *a, const void *b)
+{
+	return *(int *)a - *(int *)b;
+}
+
+int arrayPairSum(int* nums, int numsSize) {
+
+	qsort(nums, numsSize, sizeof(nums[0]), compInc);//C语言自带的排序函数！！
+	int sum = 0;
+	for (int i = numsSize - 2; i >= 0; i -= 2){
+		sum = sum + nums[i];
+	}
+	return sum;
+}
+
+//冒泡排序（超时）
+int a[5] = { 55, 23, 48, 2, 17 };
+int temp;
+
+for (int i = 0; i < 5; i++)
+	for (int j = 0; j < 4 - i; j++)
+	{
+		if (a[j]>a[j + 1])
+		{
+			temp = a[j];
+			a[j] = a[j + 1];
+			a[j + 1] = temp;
+		}
+	}
+
+for (int n = 0; n < 5; n++)
+{
+	printf("%d\n", a[n]);
+
+}
+
+//选择排序
+	int i, j;
+	int temp;
+	int sum = 0;//结果
+	int max;
+	int i, j;
+	max = -10000;
+	for (j = 0; j < numsSize; j++){
+		for (i = 0; i < numsSize; i++){
+			if (nums[i]>10000)
+			{
+				continue;
+			}
+			else
+			{
+				if (nums[i] > max)
+				{
+					max = nums[i];
+					temp = i;
+
+				}
+			}
+		}
+		nums[temp] = 10001;
+		if (j % 2 == 1) sum += max;
+		max = -10000;
+	}
+	return sum;
