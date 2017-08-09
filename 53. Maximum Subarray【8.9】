@@ -1,0 +1,18 @@
+//最大子数组和
+//思考：一个一个地遍历数组，如果当前值为负，那么它对它之前连续和没有积极的作用，导致之前的不再连续，所以cur要么继续连续下去，要么换下一个。时刻比较着
+//当前和和最大和，返回一个大的值。
+
+
+int maxSubArray(vector<int>& nums) {
+		
+		int cur=nums[0];
+		int max_sum=nums[0];
+
+		for (int i = 1; i < nums.size(); i++)
+		{
+			if (cur < 0) cur = nums[i];
+			else cur = cur + nums[i];
+			if (cur > max_sum) max_sum = cur;
+		}
+		return max_sum;
+	}
