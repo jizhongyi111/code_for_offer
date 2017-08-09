@@ -18,3 +18,19 @@
         }  
         return a[m-1][n-1];  
     }
+
+
+//一维数组实现：一共有m-1行，每行都要计算map[1]-map[n-1]，直接最后返回最后一行的n-1个数即可。
+  public int uniquePaths(int m, int n) {  
+        // DP with 1 dimension array  
+        int[] a = new int[n];  
+        for (int j = 0; j < n; j++) {  
+            a[j] = 1;  
+        }  
+        for (int i = 1; i < m; i++) {  
+            for (int j = 1; j < n; j++) {  
+                a[j] += a[j-1];  
+            }  
+        }  
+        return a[n-1];  
+    }  
