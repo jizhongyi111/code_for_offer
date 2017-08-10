@@ -1,0 +1,16 @@
+//数字塔问题，有思路，而且都编出来了，死在了数组定义上。
+//动态规划问题，先初始化最后一行，接着往上赶就好啦！
+
+int minimumTotal(vector<vector<int>>& triangle) {
+  
+    int row = triangle.size();
+    int col = triangle[0].size();
+    vector< vector<int> > path(triangle);
+    
+  for (int j = 0; j<col; j++)
+	path[row-1][j] = triangle[row - 1][j];//最后一行初始化
+  for (int i = row - 2; i >= 0; i--)
+    for (int j = 0; j <= i; j++)
+    path[i][j] = min(path[i+1][j], path[i+1][j + 1]) + triangle[i][j];
+    return path[0][0];
+    }
