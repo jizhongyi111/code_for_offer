@@ -1,0 +1,20 @@
+  //很开心，自己竟然第一次写的递归竟然结果正确，但显然是超时了，不过再接再励吧
+  //这道题依旧是动态规划，首先初始化，根据转移方程进行设计，剩余i步时，下一步要么走1步，要么走2步，所以就等于[i-1]+[i-2]种方法。
+  //注释部分是我写的递归【骄傲脸.jpg】
+  
+  
+  int climbStairs(int n) {
+        int left[100];
+        left[1]=1;
+        left[2]=2;
+        for(int i=3;i<=n;i++)
+            left[i]=left[i-1]+left[i-2];
+        return left[n];
+        
+       // if (n==1) 
+       //     return 1;
+       // else if(n==2) 
+       //     return 2;
+       // else 
+       //     return climbStairs(n-1)+climbStairs(n-2);
+    }
