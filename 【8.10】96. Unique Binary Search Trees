@@ -1,0 +1,19 @@
+//又是一道把我气疯的题目，又把里面嵌套的循环增量j写成了i，真TMD气人。
+//开始见这道题的时候没啥思路，还是道动态规划的题目，初始化一些量，找出来状态转移方程，就可以很快AC掉，加油！
+
+int numTrees(int n) {
+    int method[1000];
+	method[0] = 1;
+	method[1] = 1;
+	method[2] = 2;
+	if (n<3)
+		return method[n];
+	else{
+		for (int i = 3; i <= n; i++){
+			method[i] = 0;
+			for (int j = 0; j<i; j++)
+				method[i] = method[i] + method[j] * method[i-1-j];
+		}
+		return method[n];
+	}
+    }
