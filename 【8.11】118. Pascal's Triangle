@@ -1,0 +1,24 @@
+ //生成杨辉三角，不难，先初始化两边的值，中间的值根据上面的值进行计算。
+ 
+ vector<vector<int>> generate(int numRows) {
+    
+        vector<vector<int>> r(numRows);
+         for (int i = 0; i < numRows; i++) 
+         {
+            r[i].resize(i + 1);
+         }
+    if (numRows==0) return r;
+	
+	else{
+		for (int i = 0; i <= numRows - 1; i++){
+			r[i][0] = 1;
+			r[i][i] = 1;
+			for (int j = 1; j <= i - 1;j++)
+			{
+				r[i][j] = r[i - 1][j - 1] + r[i - 1][j];
+			}
+		}
+        
+	}
+        return r;
+    }
