@@ -1,0 +1,28 @@
+//很想批评自己1s，不认真读题！！好啦，批评结束，仍然要【撒花】【撒花】，写好了一个完整的程序，以后估计就能省力很多了。
+//输出杨辉三角的某一行，原谅我偷懒了，上一题输出了整个三角，我直接拿过来用的，继续加油！！
+
+vector<int> result(rowIndex+1);
+	if (rowIndex == 0)
+	{
+		result[0] = 1;
+		return result;
+	}
+	vector<vector<int>> r(rowIndex+1);
+	for (int i = 0; i < rowIndex+1; i++)
+	{
+		r[i].resize(i + 1);
+	}
+	
+		for (int i = 0; i <= rowIndex; i++)
+		{
+			r[i][0] = 1;
+			r[i][i] = 1;
+			for (int j = 1; j <= i - 1; j++)
+			{
+				r[i][j] = r[i - 1][j - 1] + r[i - 1][j];
+			}
+		}
+
+	for (int i = 0; i < rowIndex+1; i++)
+		result[i] = r[rowIndex][i];
+	return result;
