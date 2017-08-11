@@ -1,0 +1,39 @@
+ //股票买卖的问题，按照顺序低价买进，高价卖出。我的想法是从数组后面开始遍历，遇到比已经遍历过的数大的话就替换当前最大值，如果遇到的数小于最大值的话，
+ //就计算一次最大利润，如果利润大于已有的最大利润，就替换掉。代码如下：
+ 
+ int maxProfit(vector<int>& prices) {
+        
+  int num = prices.size();
+	int max_num = 0;
+	int cur_max=prices[num-1];
+    if(!num) return 0;//有一个例子是空集，没考虑到，后来加上去的。
+	for (int i = num - 2; i >= 0; i--)
+	{
+		if (prices[i] > cur_max) cur_max = prices[i];
+		else	max_num = max(max_num, cur_max - prices[i]);
+
+	}
+	return max_num;
+
+    }
+    
+    
+  //看过discuss之后，代码改成了这样，当前的价格最大值要么是已遍历的值，要么是这个值；当前的利润最大值要么是以前算过的值，要么是价格最大值减去这个值，
+  //于是就可以不用判断大小关系了。
+    
+  int maxProfit(vector<int>& prices) {
+       
+  int num = prices.size();
+        if(!num) return 0;
+	int max_num = 0;
+	int cur_max=prices[num-1];
+    if(!num) return 0;
+	for (int i = num - 2; i >= 0; i--)
+	{
+		cur_max = max(cur_max, prices[i]);
+		max_num = max(max_num, cur_max - prices[i]);
+
+	}
+	return max_num;
+
+    }
