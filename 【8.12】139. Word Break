@@ -23,3 +23,21 @@
 		}
 	return state[s.length()];
     }
+    
+    //惊！！我又看到了一份AC代码，貌似更好理解一些，如果当前可以直接从字典中找到，直接设为true，不能直接的话再考虑原来的方法。
+     public boolean wordBreak(String s, Set<String> wordDict) {
+        int n = s.length();
+        boolean [] a = new boolean[n];
+        for(int i = 0;i < n;i++){
+            if(wordDict.contains(s.substring(0,i+1))){
+                a[i] = true;
+                continue;
+            }
+            for(int j = 0;j < i;j++){
+                if(a[j] && wordDict.contains(s.substring(j+1,i+1))){
+                    a[i] = true;
+                }
+            }
+        }
+        return a[n-1];
+    }
