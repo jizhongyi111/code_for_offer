@@ -1,0 +1,25 @@
+ //将一个单词进行分离，如果可以利用给出的字典进行分开的话，就返回true，否则返回false;
+ //思路：定义一个容器state,state[i]=true表示前i-1项在字典中存在。外层循环控制串的遍历，内层循环控制从0到当前i的遍历，如果state[j]=true，表示j-1在
+ //字典中，然后就判断子串j到i-j是否在就好了，如果在的话，那么前i项就可以进行拆分。
+ 
+ bool wordBreak(string s, vector<string>& wordDict) {
+        	vector<bool> state(s.length()+1,false);
+	if (s.length() == 0) return true;
+	if (wordDict.size() == 0) return false;
+	state[0] = true;
+	int i,j;
+	for ( i = 0; i <= s.length(); i++)
+		for ( j = i - 1; j >= 0; j--)
+		{
+			if (state[j] == true)
+			{
+				string s1 = s.substr(j, i - j);//注意substr函数的用法
+				if (find(wordDict.begin(), wordDict.end(), s1) != wordDict.end())//注意find函数的用法
+				{
+					state[i] = true;
+					break;//跳到外部循环，i++
+				}
+			}
+		}
+	return state[s.length()];
+    }
