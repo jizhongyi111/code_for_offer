@@ -1,0 +1,36 @@
+//接上题，这里进行转换，选择了第一座房子，就不能选择第N座，选了第N座就不能选第1座，所以把问题转换成了0~N-1和1~N两段求最优的问题
+//一定要分清楚两段的条件，两段都要小于nums.size-1个，还要弄清楚加谁！！改了一晚上代码，有点郁闷。
+
+int rob(vector<int>& nums) {
+	vector<int> money1(nums.size() + 1);
+	vector<int> money2(nums.size() + 1);
+	int i;
+	int j;
+	int result1, result2;
+	if (nums.size() == 0) return 0;
+	if (nums.size() == 1) return nums[0];
+	if (nums.size() == 2) return max(nums[0], nums[1]);
+	//if (nums[0] == 1 && nums[1] == 1 && nums[2] == 1) return 1;
+	else
+	{
+		money1[0] = nums[0];
+		money1[1] = max(money1[0], nums[1]);
+		for (i = 2; i < nums.size() - 1; i++)
+		{
+			money1[i] = max(money1[i - 2] + nums[i], money1[i - 1]);
+		}
+		result1 = max(money1[nums.size() - 3], money1[nums.size() - 2]);
+
+
+
+		money2[0] = nums[1];
+		money2[1] = max(money2[0], nums[2]);
+			for (j = 2; j < nums.size()-1; j++)
+			{
+				money2[j] = max(money2[j - 2] + nums[j+1], money2[j - 1]);
+			}
+			result2 = max(money2[nums.size() - 1], money2[nums.size()-2]);
+
+		return result1 > result2 ? result1 : result2;
+	}
+}
