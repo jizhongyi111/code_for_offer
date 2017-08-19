@@ -1,0 +1,36 @@
+//此题思路比较简单，难在状态转移方程上。
+//当前元素是0时，前面只能是1或者2，此时num[i]=num[i-2]!!否则就返回0，没法解码，
+//当前元素是7~9时，前面若是1，则num[i]=num[i-1]+num[i-2],否则num[i]=num[i-1]
+//当前元素是6时，前面是1或者2，则num[i]=num[i-1]+num[i-2],否则num[i]=num[i-1]
+//其他情况，前面是1或者2的情况下，num[i]=num[i-1]+num[i-2]，否则num[i]=num[i-1]
+int numDecodings(string s) {
+	vector<int> num(s.length() + 1);
+	int i;
+
+	if (s == "" || s[0] == '0') return 0;
+	num[0] = 1;
+	num[1] = 1;
+	for (i = 1; i < s.length(); i++)
+	{
+		if (s[i] == '0')
+		{
+			if (s[i - 1] != '1' && s[i - 1] != '2') return 0;
+			else num[i + 1] = num[i-1];
+		}
+		else if (s[i] >= '7')
+		{
+			if (s[i - 1] != '1')  num[i+1] = num[i];
+			else num[i + 1] = num[i - 1] + num[i];
+		}
+		else if (s[i] == '6'){
+			if (s[i - 1] != '1' && s[i - 1] != '2')  num[i+1] = num[i];
+			else num[i + 1] = num[i - 1] + num[i];
+		}
+		else
+		{
+			if (s[i - 1] == '1' || s[i - 1] == '2') num[i + 1] = num[i - 1] + num[i];
+			else  num[i + 1] = num[i];
+		}
+	}
+	return num[s.length()];
+    }
