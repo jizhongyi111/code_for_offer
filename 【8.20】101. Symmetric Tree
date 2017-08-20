@@ -1,0 +1,29 @@
+//判断一棵树是否是对称树
+//还是递归的思想，这个题学会了一个技巧，一些不能在主函数里递归的东西，不妨弄到其他函数里去递归，主函数里启动并返回结果就好了
+
+struct TreeNode {
+	int val;
+	TreeNode *left;
+	TreeNode *right;
+	TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+};
+
+bool check(TreeNode* p, TreeNode* q){
+	if (!p&&!q) return true;
+	else if (!p&&q) return false;
+	else if (p&&!q) return false;
+	else {
+		if (p->val == q->val) return check(p->left,q->right)&&check(p->right,q->left);
+		else
+			return false;
+	}
+}
+
+bool isSymmetric(TreeNode* root) {
+
+	if (!root) return true;
+	else if (!root->left&&root->right) return false;
+	else if (root->left&&!root->right) return false;
+	else
+		return check(root->left, root->right);
+}
