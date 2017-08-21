@@ -1,0 +1,36 @@
+    //求所有左叶子节点的和。
+    //自己写的代码，递归的思想，用到了之前的一个技巧，在另一个函数里递归，开森~
+    
+    int sumleft(TreeNode* root, int sum, int flag){
+	if (!root) return 0;
+	else
+	{
+		if (!root->left&&!root->right)
+		{
+			if (flag == 1)
+				return sum;
+			else
+				return sum = sum + root->val + sumleft(root->right, 0, 1);
+		}
+		else 
+			return sumleft(root->left,0,0)+sumleft(root->right,0,1);
+	}
+}
+    
+    int sumOfLeftLeaves(TreeNode* root) {
+		if(!root) return 0;
+        else if(!root->left&&!root->right) return 0;
+        else{
+         int result = sumleft(root, 0, 0);
+		return result;   
+       }
+    }
+    
+    
+    
+    //看过了别人的，受到了暴击，，，这尼玛，人家三行完事，我用了20行，微笑脸。。
+    int sumOfLeftLeaves(TreeNode* root) {
+        if (!root) return 0;
+        if (root->left && !root->left->left && !root->left->right) return root->left->val + sumOfLeftLeaves(root->right);
+        return sumOfLeftLeaves(root->left) + sumOfLeftLeaves(root->right);
+    }
