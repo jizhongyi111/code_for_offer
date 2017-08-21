@@ -1,0 +1,22 @@
+ //判断是否是平衡二叉树
+ //对于每个节点，求出左右节点的最大深度，作差比较即可，若超过1，或者小于-1，认为不是平衡二叉树。
+ 
+ int check(TreeNode* p){
+	if (!p) return 0;
+	else {
+		int left = check(p->left);
+		int right = check(p->right);
+		return max(left, right) + 1;
+	}
+}
+   
+    bool isBalanced(TreeNode* root) {
+        if (!root) return true;
+	else
+	{
+		int diff = check(root->left) - check(root->right);
+		if (diff > 1 || diff < -1) return false;
+		else
+			return isBalanced(root->left) && isBalanced(root->right);
+	}
+    }
