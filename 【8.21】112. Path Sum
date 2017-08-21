@@ -1,0 +1,58 @@
+    //给一个数和树，看看有没有一条路径求和和给定的数相等的。
+    //彻底歇菜了，不过也学会了深度优先遍历的思想，挺值的。要定义一个栈，首先压入栈顶的元素，然后在栈不空的情况下，判断这个节点的左结点，压栈，
+    //判断这个点的右节点，压栈
+    
+    
+    bool hasPathSum(TreeNode* root, int sum) {
+               if(!root)
+            return false;
+            
+        stack<TreeNode*> stk;
+        int cur = root->val;
+        unordered_map<TreeNode*, bool> visited;
+        stk.push(root);
+        visited[root] = true;
+        
+        while(!stk.empty())
+        {
+            TreeNode* top = stk.top();
+            if(!top->left && !top->right)
+            {//leaf
+                if(cur == sum)
+                    return true;
+            }
+            
+            if(top->left && visited[top->left] == false)
+            {
+                stk.push(top->left);
+                visited[top->left] = true;
+                cur += top->left->val;
+                continue;
+            }
+            if(top->right && visited[top->right] == false)
+            {
+                stk.push(top->right);
+                visited[top->right] = true;
+                cur += top->right->val;
+                continue;
+            }
+            
+            stk.pop();
+            cur -= top->val;
+        }
+        return false;
+     
+    }
+    
+    
+    方法2：可厉害了，，倒着比较，如果有这样的一条路径，那么下面的值应该是sum-当前值
+    
+   bool hasPathSum(TreeNode *root, int sum) {
+    if (root == NULL)
+        return false;
+    else if (root->left == NULL && root->right == NULL && root->val == sum)
+        return true;
+    else {
+        return hasPathSum(root->left, sum-root->val) || hasPathSum(root->right, sum - root->val);
+    }
+}
