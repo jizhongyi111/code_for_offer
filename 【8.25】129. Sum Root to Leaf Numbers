@@ -1,0 +1,59 @@
+//到叶子节点的值求和
+//考察DFS，膜拜了大神的算法，我觉得还是应该先理清思路，找出共同点，再使用递归。先要把当前的值乘以10，再加上当前的值，然后再分别求左右的值。
+
+int sumNumbers(TreeNode *root) {
+return traverse(0, root);
+}
+
+int traverse(int fathers, TreeNode *root) {
+    if (root == NULL) {
+        return 0;
+    }
+    
+    int cur = fathers * 10 + root->val;
+    
+    int sum = traverse(cur, root->left) + traverse(cur, root->right);
+    
+    return (sum != 0) ? sum : cur;
+}
+
+
+//法2，非递归
+
+
+int sumNumbers(TreeNode* root) {
+        if(root == NULL)
+            return 0;
+        int ret = 0;
+        int cur = 0;
+        stack<TreeNode*> stk;
+        unordered_map<TreeNode*, bool> visited;
+        stk.push(root);
+        visited[root] = true;
+        cur += root->val;
+        while(!stk.empty())
+        {
+            TreeNode* top = stk.top();
+            if(top->left != NULL && visited[top->left] == false)
+            {
+                stk.push(top->left);
+                visited[top->left] = true;
+                cur = cur*10 + top->left->val;
+                continue;
+            }
+            if(top->right != NULL && visited[top->right] == false)
+            {
+                stk.push(top->right);
+                visited[top->right] = true;
+                cur = cur*10 + top->right->val;
+                continue;
+            }
+            if(top->left == NULL && top->right == NULL)
+            {
+                ret += cur;
+            }
+            stk.pop();
+            cur = (cur - top->val) / 10;
+        }
+        return ret;
+    }
